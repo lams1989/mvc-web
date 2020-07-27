@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ProductService {
+public class ProductService implements IProductService {
 
     private final ProductRepository repo;
 
@@ -19,18 +19,22 @@ public class ProductService {
         this.repo = repo;
     }
 
+    @Override
     public List<Product> listAll() {
         return repo.findAll();
     }
 
+    @Override
     public void save(Product product) {
         repo.save(product);
     }
 
+    @Override
     public Product get(long id) {
         return repo.findById(id).get();
     }
 
+    @Override
     public void delete(long id) {
         repo.deleteById(id);
     }
