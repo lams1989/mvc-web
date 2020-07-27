@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService service;
@@ -23,43 +24,43 @@ public class ProductController {
         this.service = service;
     }
 
-    // http://localhost:8080/product/
-    @RequestMapping("/")
+    // http://localhost:8080/products
+    @RequestMapping("")
     public String viewHomePage(Model model) {
         List<Product> listProducts = service.listAll();
         model.addAttribute("listProducts", listProducts);
-        return "index";
+        return "products/index";
     }
 
-    // http://localhost:8080/product/new
+    // http://localhost:8080/products/new
     @RequestMapping("/new")
     public String showNewProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product", product);
 
-        return "new_product";
+        return "products/new_product";
     }
 
-    // http://localhost:8080/product/save
+    // http://localhost:8080/products/save
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveProduct(@ModelAttribute("product") Product product) {
         service.save(product);
-        return "redirect:/";
+        return "redirect:/products";
     }
 
-    // http://localhost:8080/product/edit/1
+    // http://localhost:8080/products/edit/1
     @RequestMapping("/edit/{id}")
     public String showEditProductPage(@PathVariable(name = "id") int id, Model model) {
         Product product = service.get(id);
         model.addAttribute("product", product);
 
-        return "/edit-product";
+        return "products/edit-product";
     }
 
-    // http://localhost:8080/product/delete/1
-    @RequestMapping("/delete/{id}/{name}")
+    // http://localhost:8080/products/delete/1
+    @RequestMapping("/delete/{id}")
     public String deleteProduct(@PathVariable(name = "id") int id) {
         service.delete(id);
-        return "redirect:/";
+        return "redirect:/products";
     }
 }
