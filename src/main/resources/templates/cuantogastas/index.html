@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Gastos Manager</title>
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+</head>
+<body>
+	<form action="#" th:action="@{/cuantogastas/between}"
+		th:object="${filterDate}" method="post">
+		<h3>Filtrar por Rango</h3>
+		<table>
+			<tr>
+				<td><label for="start">Desde:</label></td>
+				<td><input type="date" th:field="*{initDate}" id="start"
+					name="trip-start"/></td>
+			</tr>
+			<tr>
+				<td><label for="end">Hasta:</label></td>
+				<td><input type="date" th:field="*{endDate}" id="end"
+					name="trip-final"/></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<button class="btn btn-primary" type="submit">Filtrar</button>
+				</td>
+			</tr>
+		</table>
+	</form>
+
+	<div align="center">
+		<h1>Cuaderno Contable</h1>
+		<a class="btn btn-primary" href="/cuantogastas/new" role="button">IngresarGastos</a>
+		<a class="btn btn-primary" href="/cuantogastas/newingreso"
+			role="button">Nuevo Ingreso</a>
+
+		<h5>
+			<span>Total Ingresos: </span> <span th:text="${totalIngresos}"
+				th:remove="tag">Total Ingresos </span>
+		</h5>
+		<h5>
+			<span>Total Gastos: </span> <span th:text="${totalGastos}"
+				th:remove="tag">Total Gastos </span>
+		</h5>
+
+
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Dia</th>
+					<th>Ingresos</th>
+					<th>Gasto Del Dia</th>
+					<th>Descripcion</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cuantogastas : ${listcuantogastas}">
+					<td th:text="${cuantogastas.id}">ID de Operacion</td>
+					<td th:text="${#dates.format(cuantogastas.dia, 'dd-MMM-yyyy')}">Dia</td>
+					<td th:text="${cuantogastas.ingresos}">Ingresos</td>
+					<td th:text="${cuantogastas.gastosDia}">Gasto del dia</td>
+					<td th:text="${cuantogastas.descripcion}">Descripcion</td>
+					<td><a th:href="@{'/cuantogastas/edit/' + ${cuantogastas.id}}">Edit</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>

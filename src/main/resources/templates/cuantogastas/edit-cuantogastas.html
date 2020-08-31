@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Edit Gastos</title>
+<link th:rel="stylesheet"
+	th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+</head>
+<body>
+	<div align="center">
+		<h1>Edite Transaccion</h1>
+		<br />
+		<form action="#" th:action="@{/cuantogastas/save}"
+			th:object="${cuantogastas}" method="post">
+
+			<table border="0" cellpadding="10">
+				<tr>
+					<td>ID gasto:</td>
+					<td th:text="*{id}" disable></td>
+				</tr>
+				<tr>
+					<td>Dia de Registro:</td>
+					<td th:text="${#dates.format(cuantogastas.dia, 'dd-MMM-yyyy')}"></td>
+				</tr>
+				<tr>
+					<td>Gasto:</td>
+					<td><input type="text" th:field="*{gastosDia}" /></td>
+				</tr>
+				<tr>
+					<td>Ingreso:</td>
+					<td><input type="text" th:field="*{ingresos}" /></td>
+				</tr>
+				<tr>
+					<td>Descripcion:</td>
+					<td><input type="text" th:field="*{descripcion}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button type="submit">Save</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>
